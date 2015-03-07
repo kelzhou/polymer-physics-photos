@@ -37,22 +37,10 @@ Or [download as ZIP](https://github.com/my-user/my-repo/archive/master.zip).
     ```
 
 ## Options
-
-Attribute     | Options     | Default      | Description
----           | ---         | ---          | ---
-`foo`         | *string*    | `bar`        | Lorem ipsum dolor.
-
-## Methods
-
-Method        | Parameters   | Returns     | Description
----           | ---          | ---         | ---
-`unicorn()`   | None.        | Nothing.    | Magic stuff appears.
+TO-DO
 
 ## Events
-
-Event         | Description
----           | ---
-`onsomething` | Triggers when something happens.
+TO-DO
 
 ## Development
 
@@ -94,7 +82,7 @@ In order to run it locally you'll need to fetch some dependencies and a basic se
 2. Create your feature branch: `git checkout -b my-new-feature`
 3. Commit your changes: `git commit -m 'Add some feature'`
 4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request :D
+5. Submit a pull request
 
 ## History
 
