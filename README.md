@@ -1,10 +1,6 @@
-# &lt;my-repo&gt;
+# &lt;physics-elements&gt;
 
-> A bare minimum custom element starter-kit using [Polymer](http://www.polymer-project.org/).
->
-> Like [Yeoman](http://yeoman.io/)? Use the [generator-element](https://www.npmjs.org/package/generator-element) instead.
->
-> Looking for a working example? Check [hello-world-polymer](https://github.com/webcomponents/hello-world-polymer).
+> Add physics based animations to Polymer elements
 
 ## Demo
 
