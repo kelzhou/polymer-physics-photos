@@ -1,4 +1,4 @@
-# &lt;physics-elements&gt;
+# physics-elements
 
 > Add physics based animations to Polymer elements
 
