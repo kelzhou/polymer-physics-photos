@@ -1,12 +1,12 @@
 {
-    "name": "my-repo",
+    "name": "physics-sandbox",
     "version": "0.0.0",
-    "description": "My awesome Custom Element",
-    "license": "MIT",
+    "description": "physics wrapper sandbox for all other physics elements",
     "main": "dist/my-element.html",
     "keywords": [
         "polymer",
-        "web-components"
+        "web-components",
+        "phyics"
     ],
     "ignore": [
         "**/.*",
