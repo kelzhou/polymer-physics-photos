@@ -2,6 +2,13 @@
 
 > Add physics based animations to Polymer elements
 
+## David TODO for 3.9.15
+1. Read Polymer 0.8 primer
+2. Initialize GitHub repo for project
+3. Set up project base code and boilerplate code
+4. Play around with Polymer more
+5. Read/study the source of other webcomponents
+
 ## Demo
 
 [Check it live!](http://my-user.github.io/my-repo)
@@ -86,8 +93,6 @@ In order to run it locally you'll need to fetch some dependencies and a basic se
 
 ## History
 
-For detailed changelog, check [Releases](https://github.com/my-user/my-repo/releases).
 
 ## License
 
-[MIT License](http://opensource.org/licenses/MIT)
