@@ -2,7 +2,7 @@
 
 > Add physics based animations to Polymer elements
 
-## David TODO for 3.9.15
+## David TODO for 3/3 - 3/10
 1. Read Polymer 0.8 primer
 2. Initialize GitHub repo for project
 3. Set up project base code and boilerplate code
