@@ -1,11 +1,11 @@
 <!-- Import Polymer -->
-<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../../polymer/polymer.html">
 
 <!-- Define your custom element -->
-<polymer-element name="my-element">
+<polymer-element name="physics-element" attributes="width height speed direction"> 
 
     <script>
-        Polymer('my-element', {
+        Polymer('physics-element', {
             // Fires when an instance of the element is created
             created: function() {},
 
@@ -21,8 +21,15 @@
             // Fires when the element was removed from the document
             detached: function() {},
 
-            // Fires when an attribute was added, removed, or updated
-            attributeChanged: function(attr, oldVal, newVal) {}
+            // Calculates element's movement
+            calculatestep: function() {},
+
+            // Moves one step
+            // Later we can implement different types of responses
+            move: function() {},
+
+            // Response action to collision
+            bump: function() {}
         });
     </script>
 
