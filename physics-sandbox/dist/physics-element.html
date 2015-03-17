@@ -1,0 +1,36 @@
+<!-- Import Polymer -->
+<link rel="import" href="../../polymer/polymer.html">
+
+<!-- Define your custom element -->
+<polymer-element name="physics-element" attributes="width height speed direction"> 
+
+    <script>
+        Polymer('physics-element', {
+            // Fires when an instance of the element is created
+            created: function() {},
+
+            // Fires when the element’s initial set of children and siblings are guaranteed to exist
+            domReady: function() {},
+
+            // Fires when the "<polymer-element>" has been fully prepared
+            ready: function() {},
+
+            // Fires when the element was inserted into the document
+            attached: function() {},
+
+            // Fires when the element was removed from the document
+            detached: function() {},
+
+            // Calculates element's movement
+            calculatestep: function() {},
+
+            // Moves one step
+            // Later we can implement different types of responses
+            move: function() {},
+
+            // Response action to collision
+            bump: function() {}
+        });
+    </script>
+
+</polymer-element>
