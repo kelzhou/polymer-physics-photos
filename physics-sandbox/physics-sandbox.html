@@ -3,7 +3,6 @@
 
 <!-- Define your custom element -->
 <polymer-element name="physics-sandbox">
-
     <script>
         Polymer('physics-sandbox', {
             // Fires when an instance of the element is created
@@ -13,7 +12,9 @@
             domReady: function() {},
 
             // Fires when the "<polymer-element>" has been fully prepared
-            ready: function() {},
+            ready: function() {
+                this.timestep();
+            },
 
             // Fires when the element was inserted into the document
             attached: function() {},
@@ -21,11 +22,21 @@
             // Fires when the element was removed from the document
             detached: function() {},
 
-            // Fires every fraction of a second and triggers children's move function
-            timestep: function() {},
+            // Fires every fraction of a second and triggers collisioncheck
+            timestep: function() {
+                this.async(this.timestep, null, 100);
+                this.collisioncheck;
+            },
 
             // Checks for collisions (between elements and with edges of sandbox) and triggers colliding children's bump function
-            collisioncheck: function() {}
+            collisioncheck: function() {
+                [].forEach.call(this.querySelectorAll('physics-element'), function(el, i){
+                    //if no intersection at next location
+                    el.fire('move');
+                    //else if collision
+                    el.fire('bump');
+                });
+            }
         });
     </script>
 
