@@ -34,9 +34,9 @@
 
             // Setup basic default values for all physics elements
             setupChildren: function() {
-                for (var i = 0; i < this.children.length; i++) {
-                    this.children[i].accelerate(0, -this.gravity);
-                    this.children[i].setBounds(0, this.xmax, 0, this.ymax);
+                for (var i = 0; i < this.querySelectorAll('physics-wrapper').length; i++) {
+                    this.querySelectorAll('physics-wrapper')[i].accelerate(0, -this.gravity);
+                    this.querySelectorAll('physics-wrapper')[i].setBounds(0, this.xmax, 0, this.ymax);
                 }
             },
 
@@ -53,8 +53,8 @@
             },
 
             advanceState: function() {
-                for (var i = 0; i < this.children.length; i++) {
-                    this.children[i].advanceState(this.dt);
+                for (var i = 0; i < this.querySelectorAll('physics-wrapper').length; i++) {
+                    this.querySelectorAll('physics-wrapper')[i].advanceState(this.dt);
                 }
             },
 
