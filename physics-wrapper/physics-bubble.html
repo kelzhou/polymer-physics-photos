@@ -1,0 +1,130 @@
+<!-- Import Polymer -->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<!-- Define your custom element -->
+<polymer-element name="physics-bubble" attributes="loc vel mass acc">
+    <template>
+        <style>
+            :host{
+                position:absolute;
+            };
+        </style>
+        <content></content>
+    </template>
+
+    <script>
+        Polymer({
+            created: function() {
+                this.loc = {x: Math.random()*window.innerWidth * 0.8 + 100, y: Math.random()*300+150};
+                this.anchor = {x: this.loc.x, y: this.loc.y};
+                this.elastic = {x: 1, y: 1}
+                this.vel = {x: 0, y: 0};
+                this.acc = {x: 0, y: 0};
+                this.storeacc = {x: 0, y: 0};
+                this.mass = 1;
+                this.friction = {x:0.016, y:0.016};
+                this.isClicked = false;
+
+                this.addEvents();
+                
+            },
+
+            addEvents: function() {
+                var polymer = this;
+                $(this).on('mousedown', function(e) {
+                    e.preventDefault();
+                    window.mouseUp = false;
+                    this.isClicked = true;
+                    this.clickedWidth = $(e.target).width();
+                    this.clickedHeight = $(e.target).height();
+                });
+
+                $(this).on('mouseup', function(e) {
+                    this.isClicked = false;
+                    //this.acc.y = 18.8
+                })
+
+
+            },
+
+            //set initial acceleration
+            accelerate: function(x, y) {
+                this.acc.x = x;
+                this.acc.y = y;
+            },
+
+            setBounds: function(xmin, xmax, ymin, ymax) {
+            },
+
+            // Estimates the new location based on 1 iteration of Euler's method
+            advanceState: function(dt) {
+                if (window.mouseUp) {
+                    //restoration from mouseclick
+                    this.isClicked = false;
+                }
+
+                //anchor oscillations
+                var xstep = 200;
+                var xanim = 0.1;
+                var xdir = 1;
+                if (! (window.timesteps % 600)) {
+                    xstep = Math.random() * 400 + 200;
+                    xanim = Math.random() * 0.05;
+                    xoffset = Math.random() * 3.14;
+                }
+
+                this.anchor.x += Math.sin(xoffset + window.timesteps/xstep) * xanim;
+                var ystep = 200;
+                var yanim = 0.1;
+                var yoffset = 1.57;
+                if (!timesteps % 400) {
+                    ystep = Math.random() * 400 + 200;
+                    yanim = Math.random() * 0.05;
+                    yoffset = Math.random() * 3.14;
+                }
+
+                this.anchor.y += Math.sin(yoffset + window.timesteps/ystep) * yanim;
+                
+                //rubber band anchor
+                this.acc.x = this.elastic.x * (this.anchor.x - this.loc.x - $(this).width()/2);
+                this.acc.y = this.elastic.y * (this.anchor.y - this.loc.y - $(this).height()/2);
+
+                if (this.isClicked) {
+                    //simulated elasticity
+                    this.acc.x += 1*(window.mouseX - $(this).width()/2 - this.loc.x);
+                    this.acc.y += 1*(window.mouseY - $(this).height()/2 - this.loc.y);
+                }
+                
+                //bounce
+                if (!this.isClicked && this.loc.y + $(this).height()/2 > this.ymax) {
+                    //this.acc.y = 100*(this.ymax - this.loc.y + $(this).height()/2) / this.ymax;
+                    this.loc.y = this.ymax - $(this).height()/2;
+                    this.vel.y *= -1;
+                } 
+                if (!this.isClicked && (this.loc.x < 0 || this.loc.x + $(this).width()/2 > this.xmax)) {
+                    this.loc.x = this.loc.x < 0 ? 0 : this.xmax - $(this).width()/2;
+                    this.vel.x *= -1;
+                }
+                //main accelerating step
+                this.vel.x *= (1 - this.friction.x);
+                this.vel.y *= (1 - this.friction.y);
+
+                this.vel.x += dt * this.acc.x;
+                this.vel.y += dt * this.acc.y;
+
+                this.loc.x += dt * this.vel.x;
+                this.loc.y += dt * this.vel.y;
+                this.updateState();
+                
+            },
+
+            // Modifies the DOM to follow the attributes
+            updateState: function () {
+                $(this).css({top:this.loc.y, left:this.loc.x});
+
+            }
+        });
+    </script>
+
+</polymer-element>
+
