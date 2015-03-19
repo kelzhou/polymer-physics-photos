@@ -19,7 +19,7 @@
                 this.vel = {x: 0, y: 0};
                 this.acc = {x: 0, y: 0};
                 this.mass = 1;
-                this.friction = {x:0.004, y:0.008};
+                this.friction = {x:0.008, y:0.0012};
                 this.isClicked = false;
                 this.xmax = window.innerWidth * 0.9;
                 this.ymax = window.innerHeight * 0.9;
@@ -63,8 +63,8 @@
                 }
                 if (this.isClicked) {
                     //simulated elasticity
-                    this.acc.x = 0.2*(window.mouseX - $(this).width()/2 - this.loc.x);
-                    this.acc.y = 0.2*(window.mouseY - $(this).height()/2- this.loc.y);
+                    this.acc.x = 0.1*(window.mouseX - $(this).width()/2 - this.loc.x);
+                    this.acc.y = 0.1*(window.mouseY - $(this).height()/2- this.loc.y);
                 }
                 //bounce
                 if (!this.isClicked && this.loc.y + $(this).height()/2 > this.ymax) {
