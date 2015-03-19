@@ -15,6 +15,22 @@
                 this.dt = .05;
                 this.xmax = 1000;
                 this.ymax = 1000;
+
+                this.addListeners();
+                
+
+            },
+
+            addListeners: function() {
+                $(window).on('mousemove', function(e) {
+                    window.mouseX = e.pageX;
+                    window.mouseY = e.pageY;
+                });
+
+
+                $(window).on('mouseup', function(e) {
+                    window.mouseUp = true;
+                });
             },
 
             // Fires when the element’s initial set of children and siblings are guaranteed to exist
