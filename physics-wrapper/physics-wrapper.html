@@ -31,15 +31,19 @@
             addEvents: function() {
                 var polymer = this;
                 $(this).on('mousedown', function(e) {
-                    e.preventDefault();
-                    window.mouseUp = false;
-                    this.isClicked = true;
-                    console.log("CLICK: " + this.loc.x + " " + this.loc.y);
+                    if (e.which == 1) {
+                        e.preventDefault();
+                        window.mouseUp = false;
+                        this.isClicked = true;
+                    }
                 });
 
                 $(this).on('mouseup', function(e) {
-                    this.isClicked = false;
-                    this.acc.y = 18.8
+                    if (e.which == 1) {
+                        this.isClicked = false;
+                        this.acc.y = 18.8
+                    }
+                    
                 })
 
 
