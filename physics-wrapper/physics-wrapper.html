@@ -66,8 +66,8 @@
                 }
                 if (this.isClicked) {
                     //simulated elasticity
-                    this.acc.x = 100*(window.mouseX - this.clickedWidth/2 - this.loc.x) / (window.mouseX);
-                    this.acc.y = 100*(window.mouseY - this.clickedHeight/2- this.loc.y) / window.mouseY;
+                    this.acc.x = 0.2*(window.mouseX - this.clickedWidth/2 - this.loc.x);
+                    this.acc.y = 0.2*(window.mouseY - this.clickedHeight/2- this.loc.y);
                 }
                 //bounce
                 if (!this.isClicked && this.loc.y + $(this).height()/2 > this.ymax) {
