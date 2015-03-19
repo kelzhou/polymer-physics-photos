@@ -1,12 +1,19 @@
 <!-- Import Polymer -->
 <link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../physics-wrapper/physics-wrapper.html">
 
 <!-- Define your custom element -->
-<polymer-element name="physics-sandbox">
+<polymer-element name="physics-sandbox" attribute="nodes">
+    <template>
+        <content></content>
+    </template>
     <script>
-        Polymer('physics-sandbox', {
+        Polymer({
             // Fires when an instance of the element is created
-            created: function() {},
+            created: function() {
+                this.gravity = -9.8;
+                this.dt = 0.1;
+            },
 
             // Fires when the element’s initial set of children and siblings are guaranteed to exist
             domReady: function() {},
@@ -24,18 +31,27 @@
 
             // Fires every fraction of a second and triggers collisioncheck
             timestep: function() {
-                this.async(this.timestep, null, 100);
-                this.collisioncheck;
+                this.async(this.timestep, null, this.dt * 500);
+                this.applyForces();
+                this.advanceState();
+                this.collisioncheck();
+            },
+
+            applyForces: function() {
+                for (var i = 0; i < this.children.length; i++) {
+                    this.children[i].accelerate(0, -this.gravity);
+                }
+            },
+
+            advanceState: function() {
+                for (var i = 0; i < this.children.length; i++) {
+                    this.children[i].advanceState(this.dt);
+                }
             },
 
             // Checks for collisions (between elements and with edges of sandbox) and triggers colliding children's bump function
             collisioncheck: function() {
-                [].forEach.call(this.querySelectorAll('physics-element'), function(el, i){
-                    //if no intersection at next location
-                    el.fire('move');
-                    //else if collision
-                    el.fire('bump');
-                });
+                
             }
         });
     </script>

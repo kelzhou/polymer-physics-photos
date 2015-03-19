@@ -1,0 +1,63 @@
+<!-- Import Polymer -->
+<link rel="import" href="../../polymer/polymer.html">
+
+<!-- Define your custom element -->
+<polymer-element name="physics-wrapper" attributes="loc vel mass acc">
+    <template>
+        <style>
+            :host{
+                position:absolute;
+            };
+        </style>
+        <content></content>
+    </template>
+
+    <script>
+        Polymer({
+            created: function() {
+                this.loc = {x: 0, y: 0};
+                this.vel = {dx: 0, dy: 0};
+                this.acc = {ddx: 0, ddy: 0};
+                this.mass = 1;
+                this.setAttributes();
+            },
+            
+            setAttributes: function() {
+                this.setAttribute("locx", this.loc.x);
+                this.setAttribute("locy", this.loc.y);
+
+                this.setAttribute("velx", this.vel.dx);
+                this.setAttribute("vely", this.vel.dy);
+                
+                this.setAttribute("accx", this.acc.ddx);
+                this.setAttribute("accy", this.acc.ddy);
+                
+                this.setAttribute("mass", this.mass);
+            },
+
+            accelerate: function(ddx, ddy) {
+                this.acc.ddx = ddx;
+                this.acc.ddy = ddy;
+            },
+
+            advanceState: function(dt) {
+                this.vel.dx += dt * this.acc.ddx;
+                this.vel.dy += dt * this.acc.ddy;
+
+                this.loc.x += dt * this.vel.dx;
+                this.loc.y += dt * this.vel.dy;
+
+                this.updateState();
+            },
+
+            //modifies the DOM to follow the attributes
+            updateState: function () {
+                console.log(this.loc.y);
+                //console.log($(this).css("left"));
+                $(this).css({top:this.loc.y});
+            }
+        });
+    </script>
+
+</polymer-element>
+
