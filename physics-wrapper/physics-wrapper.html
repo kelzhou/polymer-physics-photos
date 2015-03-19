@@ -15,13 +15,14 @@
     <script>
         Polymer({
             created: function() {
-                this.loc = {x: Math.random()*window.innerWidth * 0.8 + 100, y: Math.random()*300};
+                this.loc = {x: Math.random()*window.innerWidth * 0.7 + 100, y: Math.random()*300};
                 this.vel = {x: 0, y: 0};
                 this.acc = {x: 0, y: 0};
                 this.mass = 1;
-                this.friction = 0.008;
+                this.friction = {x:0.004, y:0.008};
                 this.isClicked = false;
-
+                this.xmax = window.innerWidth * 0.9;
+                this.ymax = window.innerHeight * 0.9;
 
                 this.addEvents();
                 
@@ -37,7 +38,6 @@
 
                     this.clickedWidth = $(e.target).width();
                     this.clickedHeight = $(e.target).height();
-                    console.log(this.clickedWidth);
                 });
 
                 $(this).on('mouseup', function(e) {
@@ -49,8 +49,8 @@
             },
 
             accelerate: function(x, y) {
-                this.acc.x += x;
-                this.acc.y += y + Math.random() * 18 - 8;
+                this.acc.x = x;
+                this.acc.y = y + Math.random() * 18 - 8;
             },
 
             setBounds: function(xmin, xmax, ymin, ymax) {
@@ -69,21 +69,26 @@
                     this.acc.x = 100*(window.mouseX - this.clickedWidth/2 - this.loc.x) / (window.mouseX);
                     this.acc.y = 100*(window.mouseY - this.clickedHeight/2- this.loc.y) / window.mouseY;
                 }
-                if (this.isClicked || (this.loc.y + $(this).height() < window.innerHeight && this.loc.x > 0 && this.loc.x < window.innerWidth)) {
-                    //main accelerating step
-                    this.vel.x *= (1 - this.friction);
-                    this.vel.y *= (1 - this.friction);
-
-                    this.vel.x += dt * this.acc.x;
-                    this.vel.y += dt * this.acc.y;
-
-                    this.loc.x += dt * this.vel.x;
-                    this.loc.y += dt * this.vel.y;
-                } else {
-                    //it has hit the edge and has no acceleration
-                    this.acc = {x: 0, y: 0};
-                    this.vel = {x: 0, y: 0};
+                //bounce
+                if (!this.isClicked && this.loc.y + $(this).height()/2 > this.ymax) {
+                    //this.acc.y = 100*(this.ymax - this.loc.y + $(this).height()/2) / this.ymax;
+                    this.loc.y = this.ymax - $(this).height()/2;
+                    this.vel.y *= -1;
+                } 
+                if (!this.isClicked && (this.loc.x < 0 || this.loc.x + $(this).width()/2 > this.xmax)) {
+                    this.loc.x = this.loc.x < 0 ? 0 : this.xmax - $(this).width()/2;
+                    this.vel.x *= -1;
                 }
+                //main accelerating step
+                this.vel.x *= (1 - this.friction.x);
+                this.vel.y *= (1 - this.friction.y);
+
+                this.vel.x += dt * this.acc.x;
+                this.vel.y += dt * this.acc.y;
+
+                this.loc.x += dt * this.vel.x;
+                this.loc.y += dt * this.vel.y;
+                
                 this.updateState();
                 
             },

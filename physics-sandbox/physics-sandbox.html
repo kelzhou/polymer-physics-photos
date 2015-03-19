@@ -1,6 +1,7 @@
 <!-- Import Polymer -->
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../physics-wrapper/physics-wrapper.html">
+<link rel="import" href="../physics-wrapper/physics-bubble.html">
 
 <!-- Define your custom element -->
 <polymer-element name="physics-sandbox" xmax="{{xmax}}" ymax="{{ymax}}" attribute="nodes">
@@ -70,7 +71,11 @@
 
             advanceState: function() {
                 for (var i = 0; i < this.querySelectorAll('physics-wrapper').length; i++) {
+                    this.querySelectorAll('physics-wrapper')[i].accelerate(0, -this.gravity);
                     this.querySelectorAll('physics-wrapper')[i].advanceState(this.dt);
+                }
+                for (var i = 0; i < this.querySelectorAll('physics-bubble').length; i++) {
+                    this.querySelectorAll('physics-bubble')[i].advanceState(this.dt);
                 }
             },
 
