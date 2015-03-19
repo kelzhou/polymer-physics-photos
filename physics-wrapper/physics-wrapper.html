@@ -6,7 +6,7 @@
     <template>
         <style>
             :host{
-                position:absolute;
+                position:fixed;
             };
         </style>
         <content></content>
@@ -34,10 +34,7 @@
                     e.preventDefault();
                     window.mouseUp = false;
                     this.isClicked = true;
-
-
-                    this.clickedWidth = $(e.target).width();
-                    this.clickedHeight = $(e.target).height();
+                    console.log("CLICK: " + this.loc.x + " " + this.loc.y);
                 });
 
                 $(this).on('mouseup', function(e) {
@@ -66,8 +63,8 @@
                 }
                 if (this.isClicked) {
                     //simulated elasticity
-                    this.acc.x = 0.2*(window.mouseX - this.clickedWidth/2 - this.loc.x);
-                    this.acc.y = 0.2*(window.mouseY - this.clickedHeight/2- this.loc.y);
+                    this.acc.x = 0.2*(window.mouseX - $(this).width()/2 - this.loc.x);
+                    this.acc.y = 0.2*(window.mouseY - $(this).height()/2- this.loc.y);
                 }
                 //bounce
                 if (!this.isClicked && this.loc.y + $(this).height()/2 > this.ymax) {
