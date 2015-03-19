@@ -3,7 +3,7 @@
 <link rel="import" href="../physics-wrapper/physics-wrapper.html">
 
 <!-- Define your custom element -->
-<polymer-element name="physics-sandbox" attribute="nodes">
+<polymer-element name="physics-sandbox" xmax="{{xmax}}" ymax="{{ymax}}" attribute="nodes">
     <template>
         <content></content>
     </template>
@@ -12,7 +12,9 @@
             // Fires when an instance of the element is created
             created: function() {
                 this.gravity = -9.8;
-                this.dt = 0.1;
+                this.dt = .05;
+                this.xmax = 1000;
+                this.ymax = 1000;
             },
 
             // Fires when the element’s initial set of children and siblings are guaranteed to exist
@@ -20,6 +22,7 @@
 
             // Fires when the "<polymer-element>" has been fully prepared
             ready: function() {
+                this.setupChildren();
                 this.timestep();
             },
 
@@ -29,18 +32,24 @@
             // Fires when the element was removed from the document
             detached: function() {},
 
+            // Setup basic default values for all physics elements
+            setupChildren: function() {
+                for (var i = 0; i < this.children.length; i++) {
+                    this.children[i].accelerate(0, -this.gravity);
+                    this.children[i].setBounds(0, this.xmax, 0, this.ymax);
+                }
+            },
+
             // Fires every fraction of a second and triggers collisioncheck
             timestep: function() {
-                this.async(this.timestep, null, this.dt * 500);
+                this.async(this.timestep, null, this.dt * 10);
                 this.applyForces();
                 this.advanceState();
-                this.collisioncheck();
+                //this.collisioncheck();
             },
 
             applyForces: function() {
-                for (var i = 0; i < this.children.length; i++) {
-                    this.children[i].accelerate(0, -this.gravity);
-                }
+                
             },
 
             advanceState: function() {
@@ -50,7 +59,7 @@
             },
 
             // Checks for collisions (between elements and with edges of sandbox) and triggers colliding children's bump function
-            collisioncheck: function() {
+            collisionCheck: function() {
                 
             }
         });

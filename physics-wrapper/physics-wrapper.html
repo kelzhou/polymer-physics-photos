@@ -15,7 +15,7 @@
     <script>
         Polymer({
             created: function() {
-                this.loc = {x: 0, y: 0};
+                this.loc = {x: Math.random()*window.innerWidth * 0.8 + 100, y: Math.random()*300};
                 this.vel = {dx: 0, dy: 0};
                 this.acc = {ddx: 0, ddy: 0};
                 this.mass = 1;
@@ -36,25 +36,31 @@
             },
 
             accelerate: function(ddx, ddy) {
-                this.acc.ddx = ddx;
-                this.acc.ddy = ddy;
+                this.acc.ddx += ddx;
+                this.acc.ddy += ddy + Math.random() * 20 - 10;
             },
 
+            setBounds: function(xmin, xmax, ymin, ymax) {
+                console.log(xmax);
+            },
+
+            // Estimates the new location based on 1 iteration of Euler's method
             advanceState: function(dt) {
-                this.vel.dx += dt * this.acc.ddx;
-                this.vel.dy += dt * this.acc.ddy;
+                if (this.loc.y < window.innerHeight - 100 && this.loc.y > 0 && this.loc.x > 0 && this.loc.x < window.innerWidth) {
+                    this.vel.dx += dt * this.acc.ddx;
+                    this.vel.dy += dt * this.acc.ddy;
 
-                this.loc.x += dt * this.vel.dx;
-                this.loc.y += dt * this.vel.dy;
+                    this.loc.x += dt * this.vel.dx;
+                    this.loc.y += dt * this.vel.dy;
 
-                this.updateState();
+                    this.updateState();
+                }
             },
 
-            //modifies the DOM to follow the attributes
+            // Modifies the DOM to follow the attributes
             updateState: function () {
-                console.log(this.loc.y);
-                //console.log($(this).css("left"));
-                $(this).css({top:this.loc.y});
+                $(this).css({top:this.loc.y, left:this.loc.x});
+
             }
         });
     </script>
