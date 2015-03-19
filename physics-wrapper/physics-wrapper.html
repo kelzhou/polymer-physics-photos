@@ -16,45 +16,76 @@
         Polymer({
             created: function() {
                 this.loc = {x: Math.random()*window.innerWidth * 0.8 + 100, y: Math.random()*300};
-                this.vel = {dx: 0, dy: 0};
-                this.acc = {ddx: 0, ddy: 0};
+                this.vel = {x: 0, y: 0};
+                this.acc = {x: 0, y: 0};
                 this.mass = 1;
-                this.setAttributes();
-            },
-            
-            setAttributes: function() {
-                this.setAttribute("locx", this.loc.x);
-                this.setAttribute("locy", this.loc.y);
+                this.friction = 0.008;
+                this.isClicked = false;
 
-                this.setAttribute("velx", this.vel.dx);
-                this.setAttribute("vely", this.vel.dy);
+
+                this.addEvents();
                 
-                this.setAttribute("accx", this.acc.ddx);
-                this.setAttribute("accy", this.acc.ddy);
-                
-                this.setAttribute("mass", this.mass);
             },
 
-            accelerate: function(ddx, ddy) {
-                this.acc.ddx += ddx;
-                this.acc.ddy += ddy + Math.random() * 18 - 8;
+            addEvents: function() {
+                var polymer = this;
+                $(this).on('mousedown', function(e) {
+                    e.preventDefault();
+                    window.mouseUp = false;
+                    this.isClicked = true;
+
+
+                    this.clickedWidth = $(e.target).width();
+                    this.clickedHeight = $(e.target).height();
+                    console.log(this.clickedWidth);
+                });
+
+                $(this).on('mouseup', function(e) {
+                    this.isClicked = false;
+                    this.acc.y = 18.8
+                })
+
+
+            },
+
+            accelerate: function(x, y) {
+                this.acc.x += x;
+                this.acc.y += y + Math.random() * 18 - 8;
             },
 
             setBounds: function(xmin, xmax, ymin, ymax) {
-                console.log(xmax);
             },
 
             // Estimates the new location based on 1 iteration of Euler's method
             advanceState: function(dt) {
-                if (this.loc.y < window.innerHeight - 100 && this.loc.y > 0 && this.loc.x > 0 && this.loc.x < window.innerWidth) {
-                    this.vel.dx += dt * this.acc.ddx;
-                    this.vel.dy += dt * this.acc.ddy;
-
-                    this.loc.x += dt * this.vel.dx;
-                    this.loc.y += dt * this.vel.dy;
-
-                    this.updateState();
+                if (window.mouseUp) {
+                    //restoration from mouseclick
+                    this.isClicked = false;
+                    this.acc.x = 0;
+                    this.acc.y = 9.8;
                 }
+                if (this.isClicked) {
+                    //simulated elasticity
+                    this.acc.x = 100*(window.mouseX - this.clickedWidth/2 - this.loc.x) / (window.mouseX);
+                    this.acc.y = 100*(window.mouseY - this.clickedHeight/2- this.loc.y) / window.mouseY;
+                }
+                if (this.isClicked || (this.loc.y + $(this).height() < window.innerHeight && this.loc.x > 0 && this.loc.x < window.innerWidth)) {
+                    //main accelerating step
+                    this.vel.x *= (1 - this.friction);
+                    this.vel.y *= (1 - this.friction);
+
+                    this.vel.x += dt * this.acc.x;
+                    this.vel.y += dt * this.acc.y;
+
+                    this.loc.x += dt * this.vel.x;
+                    this.loc.y += dt * this.vel.y;
+                } else {
+                    //it has hit the edge and has no acceleration
+                    this.acc = {x: 0, y: 0};
+                    this.vel = {x: 0, y: 0};
+                }
+                this.updateState();
+                
             },
 
             // Modifies the DOM to follow the attributes
