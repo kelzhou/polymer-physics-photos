@@ -2,12 +2,15 @@
 <head>
     <title>Physics Element Demo</title>
     <script src="../webcomponentsjs/webcomponents.min.js"></script>
-    <link rel="import" href="physics-sandbox.html">
-    <link rel="import" href="physics-element.html">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <link rel="import" href="physics-sandbox/physics-sandbox.html">
+    <link rel="import" href="physics-wrapper/physics-wrapper.html">
 </head>
 <body>
     <physics-sandbox name="sandbox">
-        <physics-element name="element1"></physics-element>
-        <physics-element name="element2"></physics-element>
+        <physics-wrapper> 
+            <p> FALLING! </p>
+        </physics-wrapper>
     </physics-sandbox>
 </body>
