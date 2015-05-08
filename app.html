@@ -3,16 +3,29 @@
     <title>Physics Element Demo</title>
     <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="/app.js"></script>
+    <link rel="stylesheet" href="styles.css">
 
     <link rel="import" href="physics-sandbox/physics-sandbox.html">
     <link rel="import" href="physics-wrapper/physics-wrapper.html">
+    <link rel="import" href="physics-wrapper/physics-bubble.html">
 </head>
 <body>
     <div id="edit-box">
-        <div id="picture-upload"></div>
+        <div id="picture-upload">
+            <input type="file" value="Upload File">
+        </div>
         <div id="customizations">
-            
+        <form id="typeselect">
+            <input type="radio" name="type" value="wrapper" checked>Physics Wrapper
+            <br>
+            <input type="radio" name="type" value="bubble">Physics Bubble
+        </form> 
+        <button type="button" id="play">Play!</button>
         </div>
     </div>
-    <physics-sandbox name="sandbox"></physics-sandbox>
+    <physics-sandbox name="sandbox" id="sandbox" xmax="1500" ymax="800">
+        <img id="image" src="http://upload.wikimedia.org/wikipedia/commons/a/a9/Example.jpg">
+    </physics-sandbox>
+    <div></div>
 </body>
