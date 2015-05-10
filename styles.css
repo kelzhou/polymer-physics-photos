@@ -1,6 +1,9 @@
 html, body {
 	height: 100%;
 	width: 100%;
+	margin: 0;
+    background-color: #FFFFFF;
+    font-family: 'RobotoDraft', sans-serif;
 }
 
 #sandbox{
@@ -9,4 +12,62 @@ html, body {
 
 .hide{
 	display: none;
+}
+
+.main {
+	padding-top: 50px;
+}
+
+core-header-panel {
+	height: 100%;
+	overflow: auto;
+	-webkit-overflow-scrolling: touch; 
+}
+core-toolbar, paper-tabs {
+	background: #A80618;
+	color: white;
+	height: 80px;
+}
+#tabs {
+	width: 100%;
+	margin: 0;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	text-transform: uppercase;
+}
+#title {
+	font-size: 30px;
+}
+.container {
+	width: 80%;
+	margin: 50px auto;
+}
+@media (min-width: 481px) {
+	#tabs {
+	  width: 200px;
+	}
+	.container {
+	  width: 500px;
+	}
+}
+
+#section {
+  margin: 60px;
+  padding: 80px 20px;
+  border-radius: 20px;
+  background-color: #eee;
+}
+
+#section2 {
+  margin: 20px;
+  padding: 80px 20px;
+  border-radius: 20px;
+  /*background-color: #eee;*/
+}
+
+#btn {
+    background: #6B0914;
+    color: white;
 }

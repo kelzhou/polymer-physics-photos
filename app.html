@@ -1,31 +1,67 @@
 <!doctype html>
 <head>
-    <title>Physics Element Demo</title>
+    <title>Physics Suite Demo</title>
+    <!-- <link rel="import" href="/static/components/font-roboto/roboto.html"> -->
+
     <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="/app.js"></script>
     <link rel="stylesheet" href="styles.css">
 
+    <link rel="import" href="bower_components/core-header-panel/core-header-panel.html">
+    <link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
+    <link rel="import" href="bower_components/paper-button/paper-button.html">
+
     <link rel="import" href="physics-sandbox/physics-sandbox.html">
     <link rel="import" href="physics-wrapper/physics-wrapper.html">
     <link rel="import" href="physics-wrapper/physics-bubble.html">
 </head>
-<body>
-    <div id="edit-box">
-        <div id="picture-upload">
-            <input type="file" value="Upload File">
+<body unresolved>
+
+   <core-header-panel>
+
+        <paper-tabs selected="0" noink="" role="tablist" horizontal="" center="" layout="">
+      
+        <paper-tab id="title" role="tab" inline="" flex="" center-center="" horizontal="" layout="" class="">Polymer Physics Suite Demo </paper-tab>
+        <!-- <paper-tab role="tab" inline="" flex="" center-center="" horizontal="" layout="" class="">ITEM TWO</paper-tab> -->
+        <!-- <paper-tab role="tab" inline="" flex="" center-center="" horizontal="" layout="" class="">ITEM THREE</paper-tab> -->
+        </paper-tabs>
+    
+
+    <div class="main" horizontal layout>
+
+        <div flex one></div>
+        <div id="section" flex four>
+            <center>
+            <div id="edit-box">
+                <h3> Upload an image and test it out yourself! </h3>
+                <div id="picture-upload">
+                    <input type="file" value="Upload File">
+                </div>
+                <br/>
+                <div id="customizations">
+                    <form id="typeselect">
+                        <input type="radio" name="type" value="wrapper" checked>Physics Wrapper
+                        <br>
+                        <input type="radio" name="type" value="bubble">Physics Bubble
+                    </form> 
+                     <br/>
+                    <button type="button" id="play">Play!</button>
+                    <!-- <paper-button raised type="button" id="btn" id="play">raised button</paper-button> -->
+                    <!-- <paper-button raised id="btn">raised button</paper-button> -->
+                </div>
+            </div>
         </div>
-        <div id="customizations">
-        <form id="typeselect">
-            <input type="radio" name="type" value="wrapper" checked>Physics Wrapper
-            <br>
-            <input type="radio" name="type" value="bubble">Physics Bubble
-        </form> 
-        <button type="button" id="play">Play!</button>
+
+        <div id="section2" flex seven>
+            <center>
+            <physics-sandbox name="sandbox" id="sandbox" xmax="1500" ymax="800">
+                <img id="image" src="http://upload.wikimedia.org/wikipedia/commons/a/a9/Example.jpg">
+            </physics-sandbox>
         </div>
+        
+
     </div>
-    <physics-sandbox name="sandbox" id="sandbox" xmax="1500" ymax="800">
-        <img id="image" src="http://upload.wikimedia.org/wikipedia/commons/a/a9/Example.jpg">
-    </physics-sandbox>
-    <div></div>
+
+    </core-header-panel>
 </body>
