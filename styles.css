@@ -71,3 +71,65 @@ core-toolbar, paper-tabs {
     background: #6B0914;
     color: white;
 }
+
+@font-face {
+  font-family: 'RobotoDraft';
+  font-style: normal;
+  font-weight: 100;
+  src: local('RobotoDraft Thin'), local('RobotoDraft-Thin'), url(http://fonts.gstatic.com/s/robotodraft/v1/hope9NW9iJ5hh8P5PM_EA6wsIWd7evfOerjO4J_CQWU.woff) format('woff');
+}
+
+body {
+  /*font-family: 'RobotoDraft';*/
+  /*padding:10px;*/
+}
+
+.polymer-radio {
+  position:relative;
+  padding-bottom:30px;
+}
+.polymer-radio input {
+  display:none;
+}
+.polymer-radio input + label article {
+  position:absolute;
+  top:-20px;
+  left:30px;
+  padding-bottom:10px;
+  width:300px;
+  overflow-x:show;
+}
+.polymer-radio input + label {
+  border-radius:50%;
+  position:absolute;
+  transition:0.2s;
+  width:0;
+  height:0;
+  top:4px;
+  left:4px;
+  padding-left:16px;
+  padding-top:16px;
+}
+.polymer-radio input:checked + label {
+  width:16px;
+  height:16px;
+  padding-left:0px;
+  padding-top:0px;
+  transition:0.2s;
+}
+.polymer-radio input + label:after {
+  content:'';
+  border:2px solid #5A5A5A;
+  border-radius:50%;
+  position:absolute;
+  width:16px;
+  height:16px;
+  top:-2px;
+  left:-2px;
+}
+.polymer-radio input:checked + label {
+  background-color: #4285F4;
+}
+.polymer-radio.green input:checked + label {
+  background-color: #0F9D58;
+}
